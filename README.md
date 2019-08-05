@@ -1,2 +1,2 @@
 # mybatisLearn
-有关mybatis的练习代码
+有关mybatis的整理
