@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+	<!-- 加载属性文件 -->
+	<properties resource="db.properties">
+		<!-- properties中还可以配置一些属性名和属性值 -->
+		<!-- <property name="mysqljdbc.driver" value="com.mysql.jdbc.Driver"/> -->
+	</properties>
+	
+	<!-- 全局配置参数，需要时再配置 -->
+	<settings>
+	  <!-- 打开延迟加载的开关 -->
+	  <setting name="lazyLoadingEnabled" value="true"/>
+	  <!-- 将积极加载设置为消极加载，按需加载 -->
+	  <setting name="aggressiveLazyLoading" value="false"/>
+	</settings>
+	
+	<!-- 定义别名 -->
+	<typeAliases>
+		<!-- 单个别名定义 -->
+		<!-- <typeAlias type="com.hys.mybatis.po.User" alias="taotao_user"/> -->
+		<!-- 批量别名定义
+		指定包名，mybatis自动扫描包中的po类，自动定义别名，别名就是类名（首字母大写或小写） -->
+		<package name="com.hys.mybatis.po"/>
+	</typeAliases>
+	
+  <environments default="development">
+  <!-- 和Spring整合之后evvironments配置将废除 -->
+    <environment id="development">
+   <!--  使用jdbc事务管理，事务控制由mybatis -->
+      <transactionManager type="JDBC"/>
+  	 <!--数据库连接池，由mybatis管理 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${mysqljdbc.driver}"/>
+        <property name="url" value="${mysqljdbc.url}"/>
+        <property name="username" value="${mysqljdbc.username}"/>
+        <property name="password" value="${mysqljdbc.password}"/>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <!-- 加载映射文件 -->
+  <mappers>
+    <mapper resource="sqlmap/User.xml"/>
+    <!-- <package name="com.example.manager.mapper"/> -->
+    <!-- <mapper resource="mapper/UserMapper.xml"/> -->
+    
+    
+   <!--  通过mapper接口加载映射文件
+   	 遵循一些规范：需要将mapper接口类名称和mapper.xml映射文件的名称保持一致， 且在同一个目录中
+   	 上边规范的前提是:使用的是mapper代理方法 -->
+   <!--  <mapper class=""/> -->
+    
+    <!-- 批量加载mapper
+   	 指定mapper接口的包名，mybatis自动扫描包下所有mapper接口进行加载
+   	 遵循一些规范：需要将mapper接口类名称和mapper.xml映射文件的名称保持一致， 且在同一个目录中
+   	 上边规范的前提是:使用的是mapper代理方法  -->
+    <package name="com.hys.mybatis.mapper"/>
+    
+  </mappers>
+</configuration>
