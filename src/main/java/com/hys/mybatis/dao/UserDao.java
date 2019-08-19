@@ -17,6 +17,4 @@ public interface UserDao {
 	// 删除用户信息
 	public void delectUserById(int id) throws Exception;
 	
-	
-
 }
